@@ -1,0 +1,18 @@
+{
+  "tables": ["", "account", "order", "adress"],
+  "roles": ["", "read", "create", "update", "delete", "report", "process"],
+  "subroles": [
+    {
+      "role": "report",
+      "roles": ["", "invoice", "salary"]
+    },
+    {
+      "role": "process",
+      "roles": ["", "test1", "test2", "test3"]
+    },
+    {
+      "role": "order",
+      "roles": ["", "test1", "test2", "test3"]
+    }
+  ]
+}

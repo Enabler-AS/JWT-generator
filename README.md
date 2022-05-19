@@ -5,40 +5,33 @@
   <p align="center">
     An open-source JSON Web Token(JWT) Generator created by Enabler.no.
     <br />
-    <a href="#about-the-project"><strong>Explore JWT generator docs»</strong></a>
-    <br />
-    <br />
-    <a href="https://jwt.enabler.no/">View Demo</a>
+    <a href="https://jwt.enabler.no/" target="_blank" >View Demo</a>
     ·
     <a href="https://github.com/Enabler-AS/JWT-generator/issues">Report Bug</a>
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
-
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
-[![JWT generator Screen Shot][jwt-generator-screenshot]]
-
+</br>
+</br>
+<div align="center">
+<img src="src/images/main.png" alt="JWT generator" width="400" />
+</div>
+</br>
+JWT generator allows you to generate JWT in an easy way! We created a form with inputs, so you can easly pass in the data and create a signature using HS256 algorithm.
+</br>
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
+</br>
+Project was built with React.js and TypeScript
+
 - [React.js](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -46,23 +39,19 @@
 
 ## Contact
 
-Enabler.no - [page-url](www.enabler.no)
-Email - [email-url](post@enabler.no)
-LinkedIn - [linkedin-url](https://www.linkedin.com/company/enabler-as/)
-Instagram - [instagram-url](https://www.instagram.com/enabler.no/)
-Facebook - [facebook-url](https://www.facebook.com/EnablerAS)
+Enabler.no - [www.enabler.no](www.enabler.no)
+</br>
 
-Project Link: [jwt-url](https://jwt.enabler.no/)
+Email - [post@enabler.no](post@enabler.no)
+</br>
+
+LinkedIn - [https://www.linkedin.com/company/enabler-as/](https://www.linkedin.com/company/enabler-as/)
+</br>
+
+Instagram - [https://www.instagram.com/enabler.no/](https://www.instagram.com/enabler.no/)
+</br>
+
+Facebook - [https://www.facebook.com/EnablerAS](https://www.facebook.com/EnablerAS)
+</br>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-
-[jwt-url]: https://jwt.enabler.no/
-[page-url]: www.enabler.no
-[email-url]: post@enabler.no
-[enabler-url]: https://www.enabler.no
-[linkedin-url]: https://www.linkedin.com/company/enabler-as/
-[facebook-url]: https://www.facebook.com/EnablerAS
-[instagram-url]: https://www.instagram.com/enabler.no/
-[jwt-generator-screenshot]: images/main.png

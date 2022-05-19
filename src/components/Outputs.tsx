@@ -18,16 +18,17 @@ const Outputs: React.FC<OutputProps> = ({ roles, data, generatedToken }) => {
   return (
     <section className='outputs'>
       <OutputStyles>
-        <textarea
-          title='payload'
-          name='payload'
-          id='payload'
-          autoComplete='off'
-          autoCorrect='off'
-          autoCapitalize='off'
-          spellCheck='false'
-          readOnly
-          value={`
+        <div className='textarea-wrapper'>
+          <textarea
+            title='payload'
+            name='payload'
+            id='payload'
+            autoComplete='off'
+            autoCorrect='off'
+            autoCapitalize='off'
+            spellCheck='false'
+            readOnly
+            value={`
   {
       "name": ${data.name ? `"${data.name}",` : ''}
       "company": ${data.company ? `"${data.company}",` : ''}
@@ -42,7 +43,8 @@ const Outputs: React.FC<OutputProps> = ({ roles, data, generatedToken }) => {
       }
       ${data.aud ? `"aud": "${data.aud}",` : ''}
   }`}
-        />
+          />
+        </div>
 
         <div className='signature-wrapper'>
           <textarea

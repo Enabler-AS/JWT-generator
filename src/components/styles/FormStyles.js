@@ -113,6 +113,10 @@ const FormStyles = styled.form`
       color: rgba(0, 0, 0, 0.5);
     }
   }
+
+  @media (max-width: 719px) {
+    padding: 0;
+  }
 `;
 
 export default FormStyles;

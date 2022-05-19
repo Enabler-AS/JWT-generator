@@ -35,6 +35,11 @@ Project was built with React.js and TypeScript
 <!-- CONTACT -->
 </br>
 
+## License
+
+Distributed under MIT License. See LICENSE.txt for more information.
+</br>
+
 ## Contact
 
 Enabler.no - [www.enabler.no](www.enabler.no)

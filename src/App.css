@@ -11,3 +11,8 @@
   right: 0;
   top: 5%;
 }
+@media (max-width: 719px) {
+  .form-wrapper {
+    top: 0;
+  }
+}

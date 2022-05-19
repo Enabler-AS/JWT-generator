@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
       </a>{' '}
       created by{' '}
       <a href='https://www.enabler.no' target='_blank' rel='noreferrer'>
-        Enabler.no
+        enabler
       </a>
       <div className='contact-links'>
         <a href='mailto:post@enabler.no'>

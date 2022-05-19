@@ -4,7 +4,7 @@ import { Buffer } from 'buffer';
 const alg = 'HS256';
 
 const symmetricSecret = (key: string) => {
-  let secret = Buffer.from(key);
+  const secret = Buffer.from(key);
   const len = Math.max(parseInt(alg.substr(-3), 10) >> 3, secret.byteLength);
   const padded = new Uint8Array(len);
   padded.set(secret);

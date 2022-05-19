@@ -10,32 +10,30 @@
     <a href="https://github.com/Enabler-AS/JWT-generator/issues">Report Bug</a>
   </p>
 </div>
-
+</br>
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
 </br>
-</br>
+
 <div align="center">
 <img src="src/images/main.png" alt="JWT generator" width="400" />
 </div>
 </br>
 JWT generator allows you to generate JWT in an easy way! We created a form with inputs, so you can easly pass in the data and create a signature using HS256 algorithm.
 </br>
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-### Built With
-
 </br>
+
+## Built With
+
 Project was built with React.js and TypeScript
 
 - [React.js](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 <!-- CONTACT -->
+</br>
 
 ## Contact
 

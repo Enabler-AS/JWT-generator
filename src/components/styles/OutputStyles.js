@@ -26,7 +26,7 @@ const OutputStyles = styled.div`
     width: 300px;
     text-align: left;
     padding: 20px;
-    font-size: 16px;
+    font-size: 14px;
     color: rgba(0, 0, 0, 0.3);
     resize: none;
 
@@ -39,7 +39,7 @@ const OutputStyles = styled.div`
   .copied-button {
     position: absolute;
     bottom: 1%;
-    right: 5%;
+    right: 9%;
   }
 
   .copied-button {
@@ -74,8 +74,14 @@ const OutputStyles = styled.div`
       margin: 0 auto;
       font-size: 14px;
       height: 200px;
-
       width: 100%;
+    }
+
+    .copy-button,
+    .copied-button {
+      position: absolute;
+      bottom: 1%;
+      right: 4%;
     }
   }
 `;

@@ -43,13 +43,13 @@ We created a form with inputs, so you can easly pass in the data and create a si
 
 # What is JSON Web Token?
 
-JSON Web Token is a token-based standard that allows us to securely transfer information between two parties without storing anything in a database.
+JSON Web Token is a token-based standard that allows us to securely transfer information between parties as a JSON object. The tokens are signed either using a private secret (HMAC algorithm) or a public/private key (RSA).
 
 JWT consists of three parts seperated by dots ( . ), which are:
 
-- Header
-- Payload
-- Signature
+- <a href="#header">Header</a>
+- <a href="#payload">Payload</a>
+- <a href="#signature">Signature</a>
 
 So a JWT typically looks like:
 
@@ -57,16 +57,61 @@ So a JWT typically looks like:
 
 ### Header
 
+  <div id="header">
 The header usually consists of two parts:
 
 - algorithm used for signing, ex. HS256
 - type of the token, which is JWT.
 
-<img src='src/images/header.png' height="100px">
+  </br>
+<div align="center">
+<img src='src/images/header.png' width="300px">
+</div>
+
+Then, this JSON is Base64Url encoded to form the first part of the JWT.
+
+</div>
+
+</br>
 
 ### Payload
 
+<div id="payload">
 The payload contains the claims, which are statements about an entity (usually user) and additional data.
+
+</br>
+
+<div align="center">
+<img src='src/images/payload.png' width="300px">
+</div>
+The payload is then Base64Url encoded to form the second part of the JWT.
+</div>
+
+</br>
+
+### Signature
+
+<div id="signature">
+The signature is created by signing the encoded header that is providing the algorithm, encoded payload with all the data and the secret (symmetric or asymetetric dependent on which algorithm is used).
+
+</br>
+
+<div align="center">
+<img src='src/images/signature.png' width="300px">
+</div>
+
+The signature is used to verify that the sender of the JWT is who it says it is and to ensure that the message was’t changed in the way.
+
+</div>
+
+</br>
+
+## When should we use JWT?
+
+- Authentication
+- Information Exchange
+
+</br>
 
 # Built With
 

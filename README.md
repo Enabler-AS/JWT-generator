@@ -1,11 +1,11 @@
 <div id="top"></div>
 
 <p align="center">
-   <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo" style="border-radius:10px">
-  </p>
+  <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo" style="border-radius:10px">
+</p>
 
 <div align="center">
-<h1 align="center" ><b>JWT generator</b></h1>
+  <h1 align="center" ><b>JWT generator</b></h1>
 
   <p align="center">
     An open-source JSON Web Token (JWT) Generator created by <a href="www.enabler.no" target="_blank" >
@@ -16,13 +16,13 @@
     ·
     <a href="https://github.com/Enabler-AS/JWT-generator/issues">Report Bug</a>
   </p>
-  <br />
+<br />
 
 JWT generator allows you to generate JWT in an easy way!
-<br/>
+<br />
 We created a form with inputs, so you can easly pass in the data and create a signature using HS256 algorithm.
 
-  <p align="center">
+<p align="center">
   <img src="src/images/main.png" alt="JWT generator" />
   <br />
   <br />
@@ -38,8 +38,7 @@ We created a form with inputs, so you can easly pass in the data and create a si
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
 </p>
 </div>
-</br>
-<!-- ABOUT THE PROJECT -->
+<br />
 
 # What is JSON Web Token?
 
@@ -63,7 +62,8 @@ The header usually consists of two parts:
 - algorithm used for signing, ex. HS256
 - type of the token, which is JWT.
 
-  </br>
+<br />
+
 <div align="center">
 <img src='src/images/header.png' width="400px">
 </div>
@@ -72,14 +72,14 @@ Then, this JSON is Base64Url encoded to form the first part of the JWT.
 
 </div>
 
-</br>
+<br />
 
 ### Payload
 
 <div id="payload">
 The payload contains the claims, which are statements about an entity (usually user) and additional data.
 
-</br>
+<br />
 
 <div align="center">
 <img src='src/images/payload.png' width="400px">
@@ -87,42 +87,42 @@ The payload contains the claims, which are statements about an entity (usually u
 The payload is then Base64Url encoded to form the second part of the JWT.
 </div>
 
-</br>
+<br />
 
 ### Signature
 
 <div id="signature" >
 The signature is created by signing the encoded header that is providing the algorithm, encoded payload with all the data and the secret (symmetric or asymetetric dependent on which algorithm is used).
 
-</br>
+<br />
 
 <div align="center">
 <img src='src/images/signature.png' width="400px">
 </div>
 
-</br>
+<br />
 
 The signature is used to ensure that the message was’t changed in the way. The party that creates the JWT signs the header and payload with a secret that is known to both the issuer and receiver, or with a private key known only to the sender. When the token is used, the receiving party verifies that the header and payload match the signature.
 
 </div>
 
-</br>
+<br />
 
 <div align="center">
 <img src='src/images/output.png' width="400px">
 </div>
 
-</br>
+<br />
 The output is three Base64 strings separated by dots that can be easily passed in HTML and HTTP environments, while being more compact compared to XML-based standards such as SAML.
 
-</br>
+<br />
 
 ## When should we use JWT?
 
 - Authentication
 - Information Exchange
 
-</br>
+<br />
 
 # Built With
 
@@ -131,22 +131,28 @@ Project was built with React.js and TypeScript
 - [React.js](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org)
 
-<!-- CONTACT -->
-</br>
+<br />
 
 # Contact
 
 <div align="center">
+  <p align="center">
+    <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo" style="border-radius:10px">
+  </p>
 
-Enabler AS is a newly started tech company based in Fredrikstad(Norway).
-</br>
-Enabler is established to create the workspace we have always wanted. It lies in creating unique and good products together with our skilled colleagues with a common set of values. Just as we are concerned with equal values, we are concerned with different perspectives, experiences and backgrounds. We believe that everyone has something to contribute.
-</br>
+<a href="www.enabler.no" target="_blank" >
+    <strong>Enabler AS</strong>
+  </a> is a newly started tech company based in Fredrikstad(Norway).
+<br />
+<a href="www.enabler.no" target="_blank" >
+    <strong>Enabler</strong>
+  </a> is established to create the workspace we have always wanted. It lies in creating unique and good products together with our skilled colleagues with a common set of values. Just as we are concerned with equal values, we are concerned with different perspectives, experiences and backgrounds. We believe that everyone has something to contribute.
+<br />
 Our name has been chosen because we want to "enable" the potential that lies in the optimal use of technology.
 
 </div>
 
-</br>
+<br />
 
 ### Contact us via:
 
@@ -155,6 +161,6 @@ Our name has been chosen because we want to "enable" the potential that lies in 
 - LinkedIn - [https://www.linkedin.com/company/enabler-as/](https://www.linkedin.com/company/enabler-as/)
 - Instagram - [https://www.instagram.com/enabler.no/](https://www.instagram.com/enabler.no/)
 - Facebook - [https://www.facebook.com/EnablerAS](https://www.facebook.com/EnablerAS)
-  </br>
+  <br />
 
 <p align="right">(<a href="#top">back to top</a>)</p>

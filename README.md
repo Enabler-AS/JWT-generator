@@ -43,7 +43,7 @@ We created a form with inputs, so you can easly pass in the data and create a si
 
 # What is JSON Web Token?
 
-JSON Web Token is a token-based standard that allows us to securely transfer information between parties as a JSON object. The tokens are signed either using a private secret (HMAC algorithm) or a public/private key (RSA).
+JSON Web Token is a token-based standard that allows us to securely transfer information between two parties as a JSON object. The tokens are signed using cryptographic algorithm, either using a private secret (HMAC algorithm) or a public/private key (RSA).
 
 JWT consists of three parts seperated by dots ( . ), which are:
 
@@ -91,7 +91,7 @@ The payload is then Base64Url encoded to form the second part of the JWT.
 
 ### Signature
 
-<div id="signature">
+<div id="signature" >
 The signature is created by signing the encoded header that is providing the algorithm, encoded payload with all the data and the secret (symmetric or asymetetric dependent on which algorithm is used).
 
 </br>
@@ -136,32 +136,25 @@ Project was built with React.js and TypeScript
 
 # Contact
 
-Enabler.no - [www.enabler.no](www.enabler.no)
+<div align="center">
+
+Enabler AS is a newly started tech company based in Fredrikstad(Norway).
+</br>
+Enabler is established to create the workspace we have always wanted. It lies in creating unique and good products together with our skilled colleagues with a common set of values. Just as we are concerned with equal values, we are concerned with different perspectives, experiences and backgrounds. We believe that everyone has something to contribute.
+</br>
+Our name has been chosen because we want to "enable" the potential that lies in the optimal use of technology.
+
+</div>
+
 </br>
 
-Email - [post@enabler.no](post@enabler.no)
-</br>
+### Contact us via:
 
-LinkedIn - [https://www.linkedin.com/company/enabler-as/](https://www.linkedin.com/company/enabler-as/)
-</br>
-
-Instagram - [https://www.instagram.com/enabler.no/](https://www.instagram.com/enabler.no/)
-</br>
-
-Facebook - [https://www.facebook.com/EnablerAS](https://www.facebook.com/EnablerAS)
-</br>
+- Enabler.no - [www.enabler.no](www.enabler.no)
+- Email - [post@enabler.no](post@enabler.no)
+- LinkedIn - [https://www.linkedin.com/company/enabler-as/](https://www.linkedin.com/company/enabler-as/)
+- Instagram - [https://www.instagram.com/enabler.no/](https://www.instagram.com/enabler.no/)
+- Facebook - [https://www.facebook.com/EnablerAS](https://www.facebook.com/EnablerAS)
+  </br>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/Enabler-AS/JWT-generator/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/Enabler-AS/JWT-generator/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/Enabler-AS/JWT-generator/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/Enabler-AS/JWT-generator/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/Enabler-AS/JWT-generator/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/company/enabler-as/

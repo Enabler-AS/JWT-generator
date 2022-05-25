@@ -1,23 +1,24 @@
 <div id="top"></div>
 
+<p align="center">
+  <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo">
+</p>
+
+<div align="center">
+  <h1 align="center"><b>JWT generator</b></h1>
   <p align="center">
-    <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo">
-  </p>
-
-  <div align="center">
-    <h1 align="center"><b>JWT generator</b></h1>
-    <p align="center">
-      An open-source JSON Web Token (JWT) generator created by <a href="www.enabler.no" target="_blank"><strong>enabler</strong></a>
-    <br />
-    <a href="https://jwt.enabler.no/" target="_blank" >View Demo</a>
-    ·
-    <a href="https://github.com/Enabler-AS/JWT-generator/issues">Report Bug</a>
-    </p>
+    An open-source JSON Web Token (JWT) generator created by <a href="www.enabler.no" target="_blank"><strong>enabler</strong></a>
   <br />
-
-JWT generator allows you to generate JWT in an easy way!
-<br />
-We created a form with inputs, so you can easly pass in the data and create a signature using HS256 algorithm.
+  <a href="https://jwt.enabler.no/" target="_blank" >View Demo</a>
+  ·    
+  <a href="https://github.com/Enabler-AS/JWT-generator/issues">Report Bug</a>
+  </p>
+  <br />
+  <p>
+    JWT generator allows you to generate JWT in an easy way!
+    <br />
+    We created a form with inputs, so you can easly pass in the data and create a signature using HS256 algorithm.
+  </p>
 
   <p align="center">
     <img src="src/images/main.png" alt="JWT generator" />
@@ -55,17 +56,18 @@ So a JWT typically looks like:
 
 <div id="header">
   The header usually consists of two parts:
-
-- algorithm used for signing, ex. HS256
-- type of the token, which is JWT.
+  
+  - algorithm used for signing, ex. HS256
+  - type of the token, which is JWT.
 
   <br />
 
-  <div align="center">
+  <div align="center">      
     <img src='src/images/header.png' width="400px">
   </div>
-
-Then, this JSON is Base64Url encoded to form the first part of the JWT.
+  <p>
+    Then, this JSON is Base64Url encoded to form the first part of the JWT.
+  </p>
 
 </div>
 
@@ -82,7 +84,9 @@ Then, this JSON is Base64Url encoded to form the first part of the JWT.
   <div align="center">
     <img src='src/images/payload.png' width="400px">
   </div>
-  The payload is then Base64Url encoded to form the second part of the JWT.
+  <p>
+    The payload is then Base64Url encoded to form the second part of the JWT.
+  </p>
 </div>
 
 <br />
@@ -101,9 +105,9 @@ Then, this JSON is Base64Url encoded to form the first part of the JWT.
   </div>
 
   <br />
-
-The signature is used to ensure that the message was’t changed in the way. The party that creates the JWT signs the header and payload with a secret that is known to both the issuer and receiver, or with a private key known only to the sender. When the token is used, the receiving party verifies that the header and payload match the signature.
-
+  <p>
+    The signature is used to ensure that the message was’t changed in the way. The party that creates the JWT signs the header and payload with a secret that is known to both the issuer and receiver, or with a private key known only to the sender. When the token is used, the receiving party verifies that the header and payload match the signature.
+  </p>
 </div>
 
 <br />
@@ -113,8 +117,9 @@ The signature is used to ensure that the message was’t changed in the way. The
 </div>
 
 <br />
-The output is three Base64 strings separated by dots that can be easily passed in HTML and HTTP environments, while being more compact compared to XML-based standards such as SAML.
-
+<p>
+  The output is three Base64 strings separated by dots that can be easily passed in HTML and HTTP environments, while being more compact compared to XML-based standards such as SAML.
+</p>
 <br />
 
 ## When should we use JWT?
@@ -144,11 +149,11 @@ Project was built with React.js and TypeScript
     <strong>Enabler AS</strong>
   </a> is a newly started tech company based in Fredrikstad(Norway).
   <br />
-  <a href="www.enabler.no" target="_blank" >
-    <strong>Enabler</strong>
-  </a> is established to create the workspace we have always wanted. It lies in creating unique and good products together with our skilled colleagues with a common set of values. Just as we are concerned with equal values, we are concerned with different perspectives, experiences and backgrounds. We believe that everyone has something to contribute.
-  <br />
-  Our name has been chosen because we want to "enable" the potential that lies in the optimal use of technology.
+  <p>
+    <a href="www.enabler.no" target="_blank" ><strong>Enabler</strong></a> is established to create the workspace we have always wanted. It lies in creating unique and good products together with our skilled colleagues with a common set of values. Just as we are concerned with equal values, we are concerned with different perspectives, experiences and backgrounds. We believe that everyone has something to contribute.
+    <br />
+    Our name has been chosen because we want to "enable" the potential that lies in the optimal use of technology.
+  </p>
 </div>
 
 <br />

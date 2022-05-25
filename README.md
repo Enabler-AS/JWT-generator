@@ -19,7 +19,7 @@
     <br />
     We created a form with inputs, so you can easly pass in the data and create a signature using HS256 algorithm.
   </p>
-
+  
   <p align="center">
     <img src="src/images/main.png" alt="JWT generator" />
     <br />
@@ -61,14 +61,13 @@ So a JWT typically looks like:
   - type of the token, which is JWT.
 
   <br />
-
   <div align="center">      
     <img src='src/images/header.png' width="400px">
   </div>
+  <br />
   <p>
     Then, this JSON is Base64Url encoded to form the first part of the JWT.
   </p>
-
 </div>
 
 <br />
@@ -80,10 +79,10 @@ So a JWT typically looks like:
     The payload contains the claims, which are statements about an entity (usually user) and additional data.
   </p>
   <br />
-
   <div align="center">
     <img src='src/images/payload.png' width="400px">
   </div>
+  <br />
   <p>
     The payload is then Base64Url encoded to form the second part of the JWT.
   </p>
@@ -97,13 +96,10 @@ So a JWT typically looks like:
   <p>
     The signature is created by signing the encoded header that is providing the algorithm, encoded payload with all the data and the secret (symmetric or asymetetric dependent on which algorithm is used).
   </p>
-
   <br />
-
   <div align="center">
     <img src='src/images/signature.png' width="400px">
   </div>
-
   <br />
   <p>
     The signature is used to ensure that the message was’t changed in the way. The party that creates the JWT signs the header and payload with a secret that is known to both the issuer and receiver, or with a private key known only to the sender. When the token is used, the receiving party verifies that the header and payload match the signature.
@@ -115,7 +111,6 @@ So a JWT typically looks like:
 <div align="center">
   <img src='src/images/output.png' width="400px">
 </div>
-
 <br />
 <p>
   The output is three Base64 strings separated by dots that can be easily passed in HTML and HTTP environments, while being more compact compared to XML-based standards such as SAML.

@@ -29,7 +29,7 @@ We created a form with inputs, so you can easly pass in the data and create a si
    <a href="https://www.linkedin.com/company/enabler-as/">
   <img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white" />
   </a>
-  <a href="https://twitter.com/spacedriveapp">
+  <a href="https://www.facebook.com/EnablerAS">
     <img src="https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white" />
   </a>
   <a href="https://www.instagram.com/enabler.no/" target="_blank" >
@@ -65,7 +65,7 @@ The header usually consists of two parts:
 
   </br>
 <div align="center">
-<img src='src/images/header.png' width="300px">
+<img src='src/images/header.png' width="400px">
 </div>
 
 Then, this JSON is Base64Url encoded to form the first part of the JWT.
@@ -82,7 +82,7 @@ The payload contains the claims, which are statements about an entity (usually u
 </br>
 
 <div align="center">
-<img src='src/images/payload.png' width="300px">
+<img src='src/images/payload.png' width="400px">
 </div>
 The payload is then Base64Url encoded to form the second part of the JWT.
 </div>
@@ -97,12 +97,23 @@ The signature is created by signing the encoded header that is providing the alg
 </br>
 
 <div align="center">
-<img src='src/images/signature.png' width="300px">
+<img src='src/images/signature.png' width="400px">
 </div>
 
-The signature is used to verify that the sender of the JWT is who it says it is and to ensure that the message was’t changed in the way.
+</br>
+
+The signature is used to ensure that the message was’t changed in the way. The party that creates the JWT signs the header and payload with a secret that is known to both the issuer and receiver, or with a private key known only to the sender. When the token is used, the receiving party verifies that the header and payload match the signature.
 
 </div>
+
+</br>
+
+<div align="center">
+<img src='src/images/output.png' width="400px">
+</div>
+
+</br>
+The output is three Base64 strings separated by dots that can be easily passed in HTML and HTTP environments, while being more compact compared to XML-based standards such as SAML.
 
 </br>
 

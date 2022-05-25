@@ -1,42 +1,39 @@
 <div id="top"></div>
 
-<p align="center">
-  <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo" style="border-radius:10px">
-</p>
-
-<div align="center">
-  <h1 align="center" ><b>JWT generator</b></h1>
-
   <p align="center">
-    An open-source JSON Web Token (JWT) Generator created by <a href="www.enabler.no" target="_blank" >
-    <strong>enabler</strong>
-  </a>
+    <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo">
+  </p>
+
+  <div align="center">
+    <h1 align="center"><b>JWT generator</b></h1>
+    <p align="center">
+      An open-source JSON Web Token (JWT) generator created by <a href="www.enabler.no" target="_blank"><strong>enabler</strong></a>
     <br />
     <a href="https://jwt.enabler.no/" target="_blank" >View Demo</a>
     ·
     <a href="https://github.com/Enabler-AS/JWT-generator/issues">Report Bug</a>
-  </p>
-<br />
+    </p>
+  <br />
 
 JWT generator allows you to generate JWT in an easy way!
 <br />
 We created a form with inputs, so you can easly pass in the data and create a signature using HS256 algorithm.
 
-<p align="center">
-  <img src="src/images/main.png" alt="JWT generator" />
-  <br />
-  <br />
-   <a href="https://www.linkedin.com/company/enabler-as/">
-  <img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white" />
-  </a>
-  <a href="https://www.facebook.com/EnablerAS">
+  <p align="center">
+    <img src="src/images/main.png" alt="JWT generator" />
+    <br />
+    <br />
+    <a href="https://www.linkedin.com/company/enabler-as/">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white" />
+    </a>
+    <a href="https://www.facebook.com/EnablerAS">
     <img src="https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white" />
-  </a>
-  <a href="https://www.instagram.com/enabler.no/" target="_blank" >
+    </a>
+    <a href="https://www.instagram.com/enabler.no/" target="_blank" >
     <img src="https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white" />
-  </a>
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
-</p>
+    </a>
+    <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
+  </p>
 </div>
 <br />
 
@@ -56,17 +53,17 @@ So a JWT typically looks like:
 
 ### Header
 
-  <div id="header">
-The header usually consists of two parts:
+<div id="header">
+  The header usually consists of two parts:
 
 - algorithm used for signing, ex. HS256
 - type of the token, which is JWT.
 
-<br />
+  <br />
 
-<div align="center">
-<img src='src/images/header.png' width="400px">
-</div>
+  <div align="center">
+    <img src='src/images/header.png' width="400px">
+  </div>
 
 Then, this JSON is Base64Url encoded to form the first part of the JWT.
 
@@ -77,14 +74,15 @@ Then, this JSON is Base64Url encoded to form the first part of the JWT.
 ### Payload
 
 <div id="payload">
-The payload contains the claims, which are statements about an entity (usually user) and additional data.
+  <p>
+    The payload contains the claims, which are statements about an entity (usually user) and additional data.
+  </p>
+  <br />
 
-<br />
-
-<div align="center">
-<img src='src/images/payload.png' width="400px">
-</div>
-The payload is then Base64Url encoded to form the second part of the JWT.
+  <div align="center">
+    <img src='src/images/payload.png' width="400px">
+  </div>
+  The payload is then Base64Url encoded to form the second part of the JWT.
 </div>
 
 <br />
@@ -92,15 +90,17 @@ The payload is then Base64Url encoded to form the second part of the JWT.
 ### Signature
 
 <div id="signature" >
-The signature is created by signing the encoded header that is providing the algorithm, encoded payload with all the data and the secret (symmetric or asymetetric dependent on which algorithm is used).
+  <p>
+    The signature is created by signing the encoded header that is providing the algorithm, encoded payload with all the data and the secret (symmetric or asymetetric dependent on which algorithm is used).
+  </p>
 
-<br />
+  <br />
 
-<div align="center">
-<img src='src/images/signature.png' width="400px">
-</div>
+  <div align="center">
+    <img src='src/images/signature.png' width="400px">
+  </div>
 
-<br />
+  <br />
 
 The signature is used to ensure that the message was’t changed in the way. The party that creates the JWT signs the header and payload with a secret that is known to both the issuer and receiver, or with a private key known only to the sender. When the token is used, the receiving party verifies that the header and payload match the signature.
 
@@ -109,7 +109,7 @@ The signature is used to ensure that the message was’t changed in the way. The
 <br />
 
 <div align="center">
-<img src='src/images/output.png' width="400px">
+  <img src='src/images/output.png' width="400px">
 </div>
 
 <br />
@@ -140,16 +140,15 @@ Project was built with React.js and TypeScript
     <img width="100" height="100" src='./src/images/logo.jpeg' alt="Logo" style="border-radius:10px">
   </p>
 
-<a href="www.enabler.no" target="_blank" >
+  <a href="www.enabler.no" target="_blank" >
     <strong>Enabler AS</strong>
   </a> is a newly started tech company based in Fredrikstad(Norway).
-<br />
-<a href="www.enabler.no" target="_blank" >
+  <br />
+  <a href="www.enabler.no" target="_blank" >
     <strong>Enabler</strong>
   </a> is established to create the workspace we have always wanted. It lies in creating unique and good products together with our skilled colleagues with a common set of values. Just as we are concerned with equal values, we are concerned with different perspectives, experiences and backgrounds. We believe that everyone has something to contribute.
-<br />
-Our name has been chosen because we want to "enable" the potential that lies in the optimal use of technology.
-
+  <br />
+  Our name has been chosen because we want to "enable" the potential that lies in the optimal use of technology.
 </div>
 
 <br />
@@ -161,6 +160,7 @@ Our name has been chosen because we want to "enable" the potential that lies in 
 - LinkedIn - [https://www.linkedin.com/company/enabler-as/](https://www.linkedin.com/company/enabler-as/)
 - Instagram - [https://www.instagram.com/enabler.no/](https://www.instagram.com/enabler.no/)
 - Facebook - [https://www.facebook.com/EnablerAS](https://www.facebook.com/EnablerAS)
-  <br />
+
+<br />
 
 <p align="right">(<a href="#top">back to top</a>)</p>

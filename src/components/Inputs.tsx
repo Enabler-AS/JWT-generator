@@ -15,8 +15,6 @@ import ButtonStyles from './styles/ButtonStyles';
 interface InputData {
   name: string;
   company: string;
-  secret: string;
-  exp: number;
   aud?: string;
 }
 
@@ -27,12 +25,13 @@ const Inputs: React.FC = () => {
   const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [secretShown, setSecretShown] = useState<boolean>(false);
+  const [addNewClaim, setAddNewClaim] = useState<boolean>(false);
+  const [newClaimName, setNewClaimName] = useState<string>('');
   const [generatedToken, setGeneratedToken] = useState<string>('');
+  const [secret, setSecret] = useState<string>(`${window.location.hash.replace('#', '')}`);
   const [inputData, setInputData] = useState<InputData>({
     name: '',
     company: '',
-    secret: `${window.location.hash.replace('#', '')}`,
-    exp: 0,
   });
 
   useEffect(() => {
@@ -45,15 +44,19 @@ const Inputs: React.FC = () => {
     setSelectedSubRole('');
   };
 
+  const handleAddNewClaim = (event: React.FormEvent) => {
+    event.preventDefault();
+    setAddNewClaim(true);
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const data = { roles: selectedRoles, ...inputData, selectedExpiryDate };
-    jwtSignature(data, setGeneratedToken, selectedExpiryDate);
+    const data = { roles: selectedRoles, ...inputData };
+    jwtSignature(data, setGeneratedToken, selectedExpiryDate, secret);
   };
 
   const handleAddClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-
     const selectedNewRole = `${selectedTable}${selectedRole ? `_${selectedRole}` : ''}${
       selectedSubRole ? `_${selectedSubRole}` : ''
     }`;
@@ -113,14 +116,12 @@ const Inputs: React.FC = () => {
         <div className='role-input' id='role-input'>
           <Select
             name='role'
-            roles={selectedRoles}
             selectedElement={selectedTable}
             setSelectedElement={setSelectedTable}
             elements={selectData.tables}
           />
           <Select
             name='role'
-            roles={selectedRoles}
             selectedElement={selectedRole}
             setSelectedElement={setSelectedRole}
             elements={selectData.roles}
@@ -182,8 +183,8 @@ const Inputs: React.FC = () => {
             placeholder='secret'
             type={secretShown ? 'text' : 'password'}
             name='secret'
-            onChange={changeHandler}
-            value={inputData.secret}
+            onChange={e => setSecret(e.target.value)}
+            value={secret}
             required={true}
             autoComplete='off'
           />
@@ -193,13 +194,30 @@ const Inputs: React.FC = () => {
             onClick={toggleSecretVisibility}
           />
         </div>
+        {addNewClaim ? (
+          <div className='newClaim'>
+            <input
+              placeholder='name'
+              type='text'
+              autoComplete='off'
+              onChange={e => setNewClaimName(e.target.value)}
+              value={newClaimName}
+            />
+            <input placeholder='value' type='text' autoComplete='off' name={newClaimName} onChange={changeHandler} />
+          </div>
+        ) : null}
 
-        <ButtonStyles type='submit' className='submit-button'>
-          Create signature
-        </ButtonStyles>
+        <div className='buttons-wrapper'>
+          <ButtonStyles type='button' className='submit-button' onClick={handleAddNewClaim}>
+            Add a new claim
+          </ButtonStyles>
+          <ButtonStyles type='submit' className='submit-button'>
+            Create signature
+          </ButtonStyles>
+        </div>
       </FormStyles>
 
-      <Outputs roles={selectedRoles} data={inputData} generatedToken={generatedToken} />
+      <Outputs data={{ ...inputData, roles: selectedRoles }} generatedToken={generatedToken} />
     </>
   );
 };

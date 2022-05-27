@@ -2,21 +2,13 @@ interface SelectProps {
   selectedElement: string;
   setSelectedElement: React.Dispatch<React.SetStateAction<string>>;
   elements: string[];
-  roles?: string[];
   name: string;
 }
 
-const Select: React.FC<SelectProps> = ({
-  elements,
-  selectedElement,
-  setSelectedElement,
-  roles,
-  name,
-}) => {
+const Select: React.FC<SelectProps> = ({ elements, selectedElement, setSelectedElement, name }) => {
   return (
     <div className='select'>
       <select
-        required={roles?.length === 0 ? true : false}
         value={selectedElement}
         name={name}
         onChange={e => {

@@ -6,13 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface OutputProps {
-  roles: string[];
   data: any;
   generatedToken: any;
 }
 
-const Outputs: React.FC<OutputProps> = ({ roles, data, generatedToken }) => {
-  useEffect(() => {}, [roles, data]);
+const Outputs: React.FC<OutputProps> = ({ data, generatedToken }) => {
+  useEffect(() => {}, [data]);
   const [copied, setCopied] = useState(false);
 
   return (
@@ -29,20 +28,11 @@ const Outputs: React.FC<OutputProps> = ({ roles, data, generatedToken }) => {
             spellCheck='false'
             readOnly
             value={`
-  {
-      "name": ${data.name ? `"${data.name}",` : ''}
-      "company": ${data.company ? `"${data.company}",` : ''}
-      "roles": ${
-        roles.length > 0
-          ? `"roles": [ ${roles.map(role => {
-              return `
-        "${role.trim()}"`;
-            })}
-      ],`
-          : ''
-      }
-      ${data.aud ? `"aud": "${data.aud}",` : ''}
-  }`}
+        {     ${Object.entries(data).map(key => {
+          return `
+                "${key.toString().replace(/,/g, '" : "')}"`;
+        })}
+        }`}
           />
         </div>
 

@@ -11,14 +11,11 @@ const symmetricSecret = (key: string) => {
   return Promise.resolve(padded);
 };
 
-const jwtSignature = (data: any, setToken: any, selectedExpiryDate: string) => {
+const jwtSignature = (data: any, setToken: any, selectedExpiryDate: string, secret: string) => {
   const fetchKey = async () => {
-    const symetricSecret = await symmetricSecret(data.secret);
+    const symetricSecret = await symmetricSecret(secret);
     const token = await new SignJWT({
-      name: data.name,
-      company: data.company,
-      roles: data.roles,
-      aud: data.aud,
+      ...data,
     })
       .setProtectedHeader({ alg: alg, typ: 'JWT' })
       .setExpirationTime(selectedExpiryDate)

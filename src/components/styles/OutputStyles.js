@@ -39,7 +39,7 @@ const OutputStyles = styled.div`
   .copy-button,
   .copied-button {
     position: absolute;
-    bottom: 3%;
+    bottom: 5%;
     right: 3%;
   }
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const FooterStyles = styled.footer`
+  grid-area: footer;
   text-align: center;
   margin: 50px 0;
   font-size: 12px;

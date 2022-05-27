@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const OutputStyles = styled.div`
-  padding: 20px;
+  margin: 40px;
   display: grid;
-  grid-template-columns: [first] 50% [line2] 50%;
+  grid-template-columns: [first] 100%;
   justify-content: center;
   align-content: center;
 
@@ -14,21 +14,22 @@ const OutputStyles = styled.div`
 
   .signature-wrapper {
     position: relative;
-    grid-column: 2 / 3;
-    grid-row: 1/ 2;
+    grid-column: 1 / 2;
+    grid-row: 2/ 3;
   }
 
   textarea {
     font-family: Arial, Helvetica, sans-serif;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    height: 300px;
-    width: 300px;
+    height: 250px;
+    width: 100%;
     text-align: left;
     padding: 20px;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.3);
     resize: none;
+    margin: 10px auto;
 
     &:focus {
       outline: none;
@@ -38,8 +39,8 @@ const OutputStyles = styled.div`
   .copy-button,
   .copied-button {
     position: absolute;
-    bottom: 1%;
-    right: 9%;
+    bottom: 3%;
+    right: 3%;
   }
 
   .copied-button {
@@ -52,9 +53,7 @@ const OutputStyles = styled.div`
       cursor: pointer;
     }
   }
-  @media (max-width: 719px) {
-    grid-template-columns: [first] 100%;
-    grid-template-rows: [row1-start] 50% [row1-end] 50% [last-line];
+  @media (max-width: 768px) {
     padding: 0;
     .textarea-wrapper {
       width: 100%;
@@ -74,14 +73,13 @@ const OutputStyles = styled.div`
       margin: 0 auto;
       font-size: 14px;
       height: 200px;
-      width: 100%;
     }
 
     .copy-button,
     .copied-button {
       position: absolute;
       bottom: 1%;
-      right: 4%;
+      right: 3%;
     }
   }
 `;

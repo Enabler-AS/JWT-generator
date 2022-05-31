@@ -7,10 +7,11 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface OutputProps {
   data: any;
+  roles: string[];
   generatedToken: any;
 }
 
-const Outputs: React.FC<OutputProps> = ({ data, generatedToken }) => {
+const Outputs: React.FC<OutputProps> = ({ data, generatedToken, roles }) => {
   useEffect(() => {}, [data]);
   const [copied, setCopied] = useState(false);
 
@@ -31,7 +32,16 @@ const Outputs: React.FC<OutputProps> = ({ data, generatedToken }) => {
         {     ${Object.entries(data).map(key => {
           return `
                 "${key.toString().replace(/,/g, '" : "')}"`;
-        })}
+        })}     
+                ${
+                  roles.length > 0
+                    ? `"roles": [ ${roles.map(role => {
+                        return `
+                      "${role.trim()}"`;
+                      })}
+                ],`
+                    : ''
+                }
         }`}
           />
         </div>

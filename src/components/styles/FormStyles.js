@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 
 const FormStyles = styled.form`
-  padding: 20px;
+  grid-area: 'form';
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  margin: 20px 40px 0;
   font-size: 12px;
   line-height: 34px;
   font-weight: 600;
@@ -114,7 +117,7 @@ const FormStyles = styled.form`
     }
   }
 
-  @media (max-width: 719px) {
+  @media (max-width: 768px) {
     padding: 0;
   }
 `;

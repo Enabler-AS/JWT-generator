@@ -25,7 +25,8 @@ const Inputs: React.FC = () => {
   const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [secretShown, setSecretShown] = useState<boolean>(false);
-  const [addNewClaim, setAddNewClaim] = useState<boolean>(false);
+  const [addClaim, setAddClaim] = useState<boolean>(false);
+  const [newClaims, setNewClaims] = useState<any>();
   const [newClaimName, setNewClaimName] = useState<string>('');
   const [generatedToken, setGeneratedToken] = useState<string>('');
   const [secret, setSecret] = useState<string>(`${window.location.hash.replace('#', '')}`);
@@ -46,16 +47,22 @@ const Inputs: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const data = { roles: selectedRoles, ...inputData };
+    const data = { roles: selectedRoles, ...inputData, ...newClaims };
     jwtSignature(data, setGeneratedToken, selectedExpiryDate, secret);
   };
 
-  const handleAddNewClaim = (event: React.FormEvent) => {
+  const handleAddNewClaimClick = (event: React.FormEvent) => {
     event.preventDefault();
-    setAddNewClaim(true);
+    setAddClaim(true);
   };
 
-  const handleAddClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleNewClaimChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const value = target.value;
+    setNewClaims({ [newClaimName]: value });
+    console.log(newClaims);
+  };
+
+  const handleAddRoleClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     const selectedNewRole = `${selectedTable}${selectedRole ? `_${selectedRole}` : ''}${
       selectedSubRole ? `_${selectedSubRole}` : ''
@@ -135,7 +142,7 @@ const Inputs: React.FC = () => {
               elements={selectData.subroles.filter(s => s.role === selectedRole)[0].roles}
             />
           )}
-          <ButtonStyles className='add-button' onClick={handleAddClick}>
+          <ButtonStyles className='add-button' onClick={handleAddRoleClick}>
             +
           </ButtonStyles>
         </div>
@@ -195,7 +202,7 @@ const Inputs: React.FC = () => {
           />
         </div>
 
-        {addNewClaim ? (
+        {addClaim ? (
           <div className='newClaim'>
             <input
               placeholder='name'
@@ -204,12 +211,18 @@ const Inputs: React.FC = () => {
               onChange={e => setNewClaimName(e.target.value)}
               value={newClaimName}
             />
-            <input placeholder='value' type='text' autoComplete='off' name={newClaimName} onChange={changeHandler} />
+            <input
+              placeholder='value'
+              type='text'
+              autoComplete='off'
+              name={newClaimName}
+              onChange={handleNewClaimChange}
+            />
           </div>
         ) : null}
 
         <div className='buttons-wrapper'>
-          <ButtonStyles type='button' className='submit-button' onClick={handleAddNewClaim}>
+          <ButtonStyles type='button' className='submit-button' onClick={handleAddNewClaimClick}>
             Add a new claim
           </ButtonStyles>
           <ButtonStyles type='submit' className='submit-button'>
@@ -218,7 +231,7 @@ const Inputs: React.FC = () => {
         </div>
       </FormStyles>
 
-      <Outputs data={{ ...inputData }} roles={selectedRoles} generatedToken={generatedToken} />
+      <Outputs data={{ ...inputData, ...newClaims }} roles={selectedRoles} generatedToken={generatedToken} />
     </>
   );
 };

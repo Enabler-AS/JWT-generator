@@ -7,13 +7,22 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface OutputProps {
   data: any;
-  roles: string[];
   generatedToken: any;
 }
 
-const Outputs: React.FC<OutputProps> = ({ data, generatedToken, roles }) => {
+const Outputs: React.FC<OutputProps> = ({ data, generatedToken }) => {
   useEffect(() => {}, [data]);
   const [copied, setCopied] = useState(false);
+  const { name, company, ...other } = data;
+  const payload = JSON.stringify(
+    {
+      name,
+      company,
+      ...other,
+    },
+    null,
+    6
+  );
 
   return (
     <section className='outputs'>
@@ -28,21 +37,7 @@ const Outputs: React.FC<OutputProps> = ({ data, generatedToken, roles }) => {
             autoCapitalize='off'
             spellCheck='false'
             readOnly
-            value={`
-        {     ${Object.entries(data).map(key => {
-          return `
-                "${key.toString().replace(/,/g, '" : "')}"`;
-        })}     
-                ${
-                  roles.length > 0
-                    ? `"roles": [ ${roles.map(role => {
-                        return `
-                      "${role.trim()}"`;
-                      })}
-                ],`
-                    : ''
-                }
-        }`}
+            value={payload}
           />
         </div>
 

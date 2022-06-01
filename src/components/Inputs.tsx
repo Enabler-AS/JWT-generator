@@ -22,8 +22,8 @@ const Inputs: React.FC = () => {
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [selectedSubRole, setSelectedSubRole] = useState<string>('');
-  const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [secretShown, setSecretShown] = useState<boolean>(false);
   const [addClaim, setAddClaim] = useState<boolean>(false);
   const [newClaims, setNewClaims] = useState<any>();
@@ -39,6 +39,10 @@ const Inputs: React.FC = () => {
     removeSecret();
   }, []);
 
+  const toggleSecretVisibility = () => {
+    setSecretShown(secretShown ? false : true);
+  };
+
   const clearRoleInputs = () => {
     setSelectedTable('');
     setSelectedRole('');
@@ -49,6 +53,22 @@ const Inputs: React.FC = () => {
     event.preventDefault();
     const data = { roles: selectedRoles, ...inputData, ...newClaims };
     jwtSignature(data, setGeneratedToken, selectedExpiryDate, secret);
+  };
+
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const value = target.value;
+    const name = target.name;
+
+    if (!value && name === 'aud') {
+      let copyOfInput = { ...inputData };
+      delete copyOfInput.aud;
+      setInputData(copyOfInput);
+    } else {
+      setInputData({
+        ...inputData,
+        [name]: value,
+      });
+    }
   };
 
   const handleAddNewClaimClick = (event: React.FormEvent) => {
@@ -67,32 +87,12 @@ const Inputs: React.FC = () => {
     const selectedNewRole = `${selectedTable}${selectedRole ? `_${selectedRole}` : ''}${
       selectedSubRole ? `_${selectedSubRole}` : ''
     }`;
-    if (selectedNewRole !== '' && !selectedRoles.find(r => r === selectedNewRole)) {
-      const newRoles = [selectedNewRole, ...selectedRoles];
+    if (selectedNewRole !== '' && !selectedRoles?.find(r => r === selectedNewRole)) {
+      const newRoles = [selectedNewRole, ...selectedRoles!];
       setSelectedRoles(newRoles);
     }
 
     clearRoleInputs();
-  };
-
-  const toggleSecretVisibility = () => {
-    setSecretShown(secretShown ? false : true);
-  };
-
-  const changeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const value = target.value;
-    const name = target.name;
-
-    if (!value && name === 'aud') {
-      let copyOfInput = { ...inputData };
-      delete copyOfInput.aud;
-      setInputData(copyOfInput);
-    } else {
-      setInputData({
-        ...inputData,
-        [name]: value,
-      });
-    }
   };
 
   return (
@@ -103,7 +103,7 @@ const Inputs: React.FC = () => {
           id='name-input'
           placeholder='name'
           name='name'
-          onChange={changeHandler}
+          onChange={handleChange}
           value={inputData.name}
           required={true}
           autoComplete='off'
@@ -114,7 +114,7 @@ const Inputs: React.FC = () => {
           id='company-input'
           placeholder='company name'
           name='company'
-          onChange={changeHandler}
+          onChange={handleChange}
           value={inputData.company}
           required={true}
           autoComplete='off'
@@ -132,6 +132,7 @@ const Inputs: React.FC = () => {
             selectedElement={selectedRole}
             setSelectedElement={setSelectedRole}
             elements={selectData.roles}
+            disabled={selectedTable ? false : true}
           />
 
           {selectData.subroles.find(s => s.role === selectedRole) && (
@@ -148,12 +149,12 @@ const Inputs: React.FC = () => {
         </div>
 
         <div className='roles'>
-          {selectedRoles.map((r, index) => (
+          {selectedRoles?.map((r, index) => (
             <Role
               key={index}
               text={r}
               onClick={() => {
-                setSelectedRoles(selectedRoles.filter(item => item !== r));
+                setSelectedRoles(selectedRoles?.filter(item => item !== r));
               }}
             />
           ))}
@@ -178,7 +179,7 @@ const Inputs: React.FC = () => {
           id='aud-input'
           placeholder='aud'
           name='aud'
-          onChange={changeHandler}
+          onChange={handleChange}
           value={inputData.aud ?? ''}
           autoComplete='off'
         />
@@ -231,7 +232,14 @@ const Inputs: React.FC = () => {
         </div>
       </FormStyles>
 
-      <Outputs data={{ ...inputData, ...newClaims }} roles={selectedRoles} generatedToken={generatedToken} />
+      <Outputs
+        data={
+          selectedRoles.length > 0
+            ? { ...inputData, ...newClaims, roles: selectedRoles, exp: selectedExpiryDate }
+            : { ...inputData, ...newClaims, exp: selectedExpiryDate }
+        }
+        generatedToken={generatedToken}
+      />
     </>
   );
 };

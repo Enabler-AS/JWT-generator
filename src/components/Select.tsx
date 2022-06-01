@@ -3,9 +3,10 @@ interface SelectProps {
   setSelectedElement: React.Dispatch<React.SetStateAction<string>>;
   elements: string[];
   name: string;
+  disabled?: boolean;
 }
 
-const Select: React.FC<SelectProps> = ({ elements, selectedElement, setSelectedElement, name }) => {
+const Select: React.FC<SelectProps> = ({ elements, selectedElement, setSelectedElement, name, disabled }) => {
   return (
     <div className='select'>
       <select
@@ -13,7 +14,8 @@ const Select: React.FC<SelectProps> = ({ elements, selectedElement, setSelectedE
         name={name}
         onChange={e => {
           setSelectedElement(e.target.value);
-        }}>
+        }}
+        disabled={disabled}>
         {elements.map((table, index) => {
           return (
             <option key={index} value={table}>

@@ -18,7 +18,7 @@ const FormStyles = styled.form`
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    padding: 0.5rem;
+    padding: 10px;
     font-size: 12px;
     font-weight: 200;
     margin: 0 0 10px;
@@ -90,9 +90,12 @@ const FormStyles = styled.form`
     margin-right: 10px;
   }
 
-  .submit-button {
-    display: block;
+  .buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 20px auto;
+    gap: 10px;
   }
 
   #hidden-select {
@@ -115,6 +118,14 @@ const FormStyles = styled.form`
     &:hover {
       color: rgba(0, 0, 0, 0.5);
     }
+  }
+
+  .newClaim {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
   }
 
   @media (max-width: 768px) {

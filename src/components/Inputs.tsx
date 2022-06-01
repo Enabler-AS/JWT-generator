@@ -15,8 +15,6 @@ import ButtonStyles from './styles/ButtonStyles';
 interface InputData {
   name: string;
   company: string;
-  secret: string;
-  exp: number;
   aud?: string;
 }
 
@@ -24,20 +22,26 @@ const Inputs: React.FC = () => {
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [selectedSubRole, setSelectedSubRole] = useState<string>('');
-  const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+  const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [secretShown, setSecretShown] = useState<boolean>(false);
+  const [addClaim, setAddClaim] = useState<boolean>(false);
+  const [newClaims, setNewClaims] = useState<any>();
+  const [newClaimName, setNewClaimName] = useState<string>('');
   const [generatedToken, setGeneratedToken] = useState<string>('');
+  const [secret, setSecret] = useState<string>(`${window.location.hash.replace('#', '')}`);
   const [inputData, setInputData] = useState<InputData>({
     name: '',
     company: '',
-    secret: `${window.location.hash.replace('#', '')}`,
-    exp: 0,
   });
 
   useEffect(() => {
     removeSecret();
   }, []);
+
+  const toggleSecretVisibility = () => {
+    setSecretShown(secretShown ? false : true);
+  };
 
   const clearRoleInputs = () => {
     setSelectedTable('');
@@ -47,29 +51,11 @@ const Inputs: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const data = { roles: selectedRoles, ...inputData, selectedExpiryDate };
-    jwtSignature(data, setGeneratedToken, selectedExpiryDate);
+    const data = { roles: selectedRoles, ...inputData, ...newClaims };
+    jwtSignature(data, setGeneratedToken, selectedExpiryDate, secret);
   };
 
-  const handleAddClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    const selectedNewRole = `${selectedTable}${selectedRole ? `_${selectedRole}` : ''}${
-      selectedSubRole ? `_${selectedSubRole}` : ''
-    }`;
-    if (selectedNewRole !== '' && !selectedRoles.find(r => r === selectedNewRole)) {
-      const newRoles = [selectedNewRole, ...selectedRoles];
-      setSelectedRoles(newRoles);
-    }
-
-    clearRoleInputs();
-  };
-
-  const toggleSecretVisibility = () => {
-    setSecretShown(secretShown ? false : true);
-  };
-
-  const changeHandler = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const value = target.value;
     const name = target.name;
 
@@ -85,6 +71,30 @@ const Inputs: React.FC = () => {
     }
   };
 
+  const handleAddNewClaimClick = (event: React.FormEvent) => {
+    event.preventDefault();
+    setAddClaim(true);
+  };
+
+  const handleNewClaimChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const value = target.value;
+    setNewClaims({ [newClaimName]: value });
+    console.log(newClaims);
+  };
+
+  const handleAddRoleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    const selectedNewRole = `${selectedTable}${selectedRole ? `_${selectedRole}` : ''}${
+      selectedSubRole ? `_${selectedSubRole}` : ''
+    }`;
+    if (selectedNewRole !== '' && !selectedRoles?.find(r => r === selectedNewRole)) {
+      const newRoles = [selectedNewRole, ...selectedRoles!];
+      setSelectedRoles(newRoles);
+    }
+
+    clearRoleInputs();
+  };
+
   return (
     <>
       <FormStyles onSubmit={handleSubmit}>
@@ -93,7 +103,7 @@ const Inputs: React.FC = () => {
           id='name-input'
           placeholder='name'
           name='name'
-          onChange={changeHandler}
+          onChange={handleChange}
           value={inputData.name}
           required={true}
           autoComplete='off'
@@ -104,7 +114,7 @@ const Inputs: React.FC = () => {
           id='company-input'
           placeholder='company name'
           name='company'
-          onChange={changeHandler}
+          onChange={handleChange}
           value={inputData.company}
           required={true}
           autoComplete='off'
@@ -113,17 +123,16 @@ const Inputs: React.FC = () => {
         <div className='role-input' id='role-input'>
           <Select
             name='role'
-            roles={selectedRoles}
             selectedElement={selectedTable}
             setSelectedElement={setSelectedTable}
             elements={selectData.tables}
           />
           <Select
             name='role'
-            roles={selectedRoles}
             selectedElement={selectedRole}
             setSelectedElement={setSelectedRole}
             elements={selectData.roles}
+            disabled={selectedTable ? false : true}
           />
 
           {selectData.subroles.find(s => s.role === selectedRole) && (
@@ -134,18 +143,18 @@ const Inputs: React.FC = () => {
               elements={selectData.subroles.filter(s => s.role === selectedRole)[0].roles}
             />
           )}
-          <ButtonStyles className='add-button' onClick={handleAddClick}>
+          <ButtonStyles className='add-button' onClick={handleAddRoleClick}>
             +
           </ButtonStyles>
         </div>
 
         <div className='roles'>
-          {selectedRoles.map((r, index) => (
+          {selectedRoles?.map((r, index) => (
             <Role
               key={index}
               text={r}
               onClick={() => {
-                setSelectedRoles(selectedRoles.filter(item => item !== r));
+                setSelectedRoles(selectedRoles?.filter(item => item !== r));
               }}
             />
           ))}
@@ -170,7 +179,7 @@ const Inputs: React.FC = () => {
           id='aud-input'
           placeholder='aud'
           name='aud'
-          onChange={changeHandler}
+          onChange={handleChange}
           value={inputData.aud ?? ''}
           autoComplete='off'
         />
@@ -182,8 +191,8 @@ const Inputs: React.FC = () => {
             placeholder='secret'
             type={secretShown ? 'text' : 'password'}
             name='secret'
-            onChange={changeHandler}
-            value={inputData.secret}
+            onChange={e => setSecret(e.target.value)}
+            value={secret}
             required={true}
             autoComplete='off'
           />
@@ -194,12 +203,43 @@ const Inputs: React.FC = () => {
           />
         </div>
 
-        <ButtonStyles type='submit' className='submit-button'>
-          Create signature
-        </ButtonStyles>
+        {addClaim ? (
+          <div className='newClaim'>
+            <input
+              placeholder='name'
+              type='text'
+              autoComplete='off'
+              onChange={e => setNewClaimName(e.target.value)}
+              value={newClaimName}
+            />
+            <input
+              placeholder='value'
+              type='text'
+              autoComplete='off'
+              name={newClaimName}
+              onChange={handleNewClaimChange}
+            />
+          </div>
+        ) : null}
+
+        <div className='buttons-wrapper'>
+          <ButtonStyles type='button' className='submit-button' onClick={handleAddNewClaimClick}>
+            Add a new claim
+          </ButtonStyles>
+          <ButtonStyles type='submit' className='submit-button'>
+            Create signature
+          </ButtonStyles>
+        </div>
       </FormStyles>
 
-      <Outputs roles={selectedRoles} data={inputData} generatedToken={generatedToken} />
+      <Outputs
+        data={
+          selectedRoles.length > 0
+            ? { ...inputData, ...newClaims, roles: selectedRoles, exp: selectedExpiryDate }
+            : { ...inputData, ...newClaims, exp: selectedExpiryDate }
+        }
+        generatedToken={generatedToken}
+      />
     </>
   );
 };

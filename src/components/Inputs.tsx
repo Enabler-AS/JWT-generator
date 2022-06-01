@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import Role from './Role';
 import Select from './Select';
 import Input from './Input';
@@ -18,6 +18,35 @@ interface InputData {
   aud?: string;
 }
 
+interface ClaimEntry {
+  name: string;
+  value: string;
+  index: number;
+}
+
+const reducer = (state: any, action: any) => {
+  const stateCopy = [...state];
+  const handleChangeValues = (field: string, index: number, value: string) => (stateCopy[index][field] = value);
+
+  switch (action.action) {
+    case 'addEmptyClaim':
+      return [...state, { name: '', value: '' }];
+    case 'name':
+      handleChangeValues('name', action.payload.index, action.payload.value);
+      return stateCopy;
+    case 'value':
+      handleChangeValues('value', action.payload.index, action.payload.value);
+      return stateCopy;
+    case 'delete':
+      return stateCopy.filter(item => item !== stateCopy[action.index]);
+
+    default:
+      return state;
+  }
+};
+
+const initialState: ClaimEntry[] = [];
+
 const Inputs: React.FC = () => {
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [selectedRole, setSelectedRole] = useState<string>('');
@@ -25,9 +54,7 @@ const Inputs: React.FC = () => {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [secretShown, setSecretShown] = useState<boolean>(false);
-  const [addClaim, setAddClaim] = useState<boolean>(false);
-  const [newClaims, setNewClaims] = useState<any>();
-  const [newClaimName, setNewClaimName] = useState<string>('');
+  const [newClaims, setNewClaims] = useState<string[]>();
   const [generatedToken, setGeneratedToken] = useState<string>('');
   const [secret, setSecret] = useState<string>(`${window.location.hash.replace('#', '')}`);
   const [inputData, setInputData] = useState<InputData>({
@@ -35,9 +62,15 @@ const Inputs: React.FC = () => {
     company: '',
   });
 
+  const [claims, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
     removeSecret();
   }, []);
+
+  useEffect(() => {
+    returnNewClaimsList();
+  }, [claims]);
 
   const toggleSecretVisibility = () => {
     setSecretShown(secretShown ? false : true);
@@ -71,15 +104,16 @@ const Inputs: React.FC = () => {
     }
   };
 
-  const handleAddNewClaimClick = (event: React.FormEvent) => {
-    event.preventDefault();
-    setAddClaim(true);
+  const returnNewClaimsList = () => {
+    const claimsList = claims.reduce((acc: any, item: any) => {
+      return { ...acc, [item.name]: item.value };
+    }, {});
+    setNewClaims(claimsList);
   };
 
-  const handleNewClaimChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const value = target.value;
-    setNewClaims({ [newClaimName]: value });
-    console.log(newClaims);
+  const handleAddNewClaimClick = (event: React.FormEvent) => {
+    event.preventDefault();
+    dispatch({ action: 'addEmptyClaim' });
   };
 
   const handleAddRoleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -203,7 +237,34 @@ const Inputs: React.FC = () => {
           />
         </div>
 
-        {addClaim ? (
+        {claims.map((el: any, index: number) => (
+          <div className='newClaim' key={index}>
+            <input
+              placeholder='name'
+              type='text'
+              autoComplete='off'
+              onChange={e => dispatch({ action: 'name', payload: { value: e.target.value, index } })}
+              value={el.name}
+            />
+            <input
+              placeholder='value'
+              type='text'
+              autoComplete='off'
+              onChange={e => dispatch({ action: 'value', payload: { value: e.target.value, index } })}
+              value={el.value}
+              disabled={!el.name}
+            />
+            <button
+              type='button'
+              onClick={() => {
+                dispatch({ action: 'delete', index });
+              }}>
+              x
+            </button>
+          </div>
+        ))}
+
+        {/* {!addClaim === false ?? (
           <div className='newClaim'>
             <input
               placeholder='name'
@@ -220,10 +281,14 @@ const Inputs: React.FC = () => {
               onChange={handleNewClaimChange}
             />
           </div>
-        ) : null}
+        )} */}
 
         <div className='buttons-wrapper'>
-          <ButtonStyles type='button' className='submit-button' onClick={handleAddNewClaimClick}>
+          <ButtonStyles
+            type='button'
+            className='submit-button'
+            onClick={handleAddNewClaimClick}
+            disabled={!!claims.length && !claims[claims.length - 1].name}>
             Add a new claim
           </ButtonStyles>
           <ButtonStyles type='submit' className='submit-button'>

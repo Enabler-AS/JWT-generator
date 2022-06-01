@@ -132,6 +132,7 @@ const Inputs: React.FC = () => {
             selectedElement={selectedRole}
             setSelectedElement={setSelectedRole}
             elements={selectData.roles}
+            disabled={selectedTable ? false : true}
           />
 
           {selectData.subroles.find(s => s.role === selectedRole) && (

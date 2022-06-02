@@ -6,7 +6,7 @@ const ButtonStyles = styled.button`
   border: 1px solid #5899e0;
   border-radius: 5px;
   font-size: 12px;
-  margin: 0 0 20px;
+  margin: 0 0 10px;
   padding: 10px;
   transition: all 200ms ease-in-out;
 

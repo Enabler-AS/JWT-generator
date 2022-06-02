@@ -65,7 +65,7 @@ const FormStyles = styled.form`
     font-family: system-ui;
     font-size: 12px;
     grid-template-areas: 'select';
-    margin: 0 0 20px;
+    margin: 0 0 10px;
     outline: none;
     padding: 0 10px;
     width: 100%;
@@ -121,11 +121,10 @@ const FormStyles = styled.form`
   }
 
   .newClaim {
-    margin: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
   }
 
   @media (max-width: 768px) {

@@ -18,6 +18,6 @@
     top: 0;
     grid-template-areas: 'form' 'outputs' 'footer';
     grid-template-columns: [first] 100%;
-    grid-template-rows: [first] 47% [second] 40% [third] 12% [last-line];
+    grid-auto-rows: minmax(min-content, max-content);
   }
 }

@@ -238,50 +238,34 @@ const Inputs: React.FC = () => {
         </div>
 
         {claims.map((el: any, index: number) => (
-          <div className='newClaim' key={index}>
-            <input
-              placeholder='name'
-              type='text'
-              autoComplete='off'
-              onChange={e => dispatch({ action: 'name', payload: { value: e.target.value, index } })}
-              value={el.name}
-            />
-            <input
-              placeholder='value'
-              type='text'
-              autoComplete='off'
-              onChange={e => dispatch({ action: 'value', payload: { value: e.target.value, index } })}
-              value={el.value}
-              disabled={!el.name}
-            />
-            <button
-              type='button'
-              onClick={() => {
-                dispatch({ action: 'delete', index });
-              }}>
-              x
-            </button>
-          </div>
+          <>
+            <label htmlFor={`${el.name}`}>{el.name ? el.name : 'name'}</label>
+            <div className='newClaim' key={index}>
+              <input
+                placeholder='name'
+                type='text'
+                autoComplete='off'
+                onChange={e => dispatch({ action: 'name', payload: { value: e.target.value, index } })}
+                value={el.name}
+              />
+              <input
+                placeholder='value'
+                type='text'
+                autoComplete='off'
+                onChange={e => dispatch({ action: 'value', payload: { value: e.target.value, index } })}
+                value={el.value}
+                disabled={!el.name}
+              />
+              <ButtonStyles
+                type='button'
+                onClick={() => {
+                  dispatch({ action: 'delete', index });
+                }}>
+                x
+              </ButtonStyles>
+            </div>
+          </>
         ))}
-
-        {/* {!addClaim === false ?? (
-          <div className='newClaim'>
-            <input
-              placeholder='name'
-              type='text'
-              autoComplete='off'
-              onChange={e => setNewClaimName(e.target.value)}
-              value={newClaimName}
-            />
-            <input
-              placeholder='value'
-              type='text'
-              autoComplete='off'
-              name={newClaimName}
-              onChange={handleNewClaimChange}
-            />
-          </div>
-        )} */}
 
         <div className='buttons-wrapper'>
           <ButtonStyles

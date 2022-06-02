@@ -202,6 +202,16 @@ const Inputs: React.FC = () => {
             onClick={toggleSecretVisibility}
           />
         </div>
+        <div className='checkbox-wrapper'>
+          <input
+            className='checkbox-base64'
+            title='checkbox-base64'
+            id='checkbox-base64'
+            type='checkbox'
+            name='base64'
+          />
+          <div>secret base64 encoded</div>
+        </div>
 
         {addClaim ? (
           <div className='newClaim'>

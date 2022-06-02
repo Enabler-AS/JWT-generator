@@ -128,8 +128,23 @@ const FormStyles = styled.form`
     gap: 10px;
   }
 
+  .checkbox-wrapper {
+    display: grid;
+    grid-template-columns: [first] 5% [second] 95%;
+    align-items: center;
+    justify-content: start;
+
+    input {
+      margin: 0;
+    }
+  }
+
   @media (max-width: 768px) {
     padding: 0;
+
+    .checkbox-wrapper {
+      grid-template-columns: [first] 10% [second] 90%;
+    }
   }
 `;
 

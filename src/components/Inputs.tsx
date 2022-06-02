@@ -256,9 +256,9 @@ const Inputs: React.FC = () => {
         </div>
 
         {claims.map((el: Claim, index: number) => (
-          <>
+          <div key={index}>
             <label htmlFor={`${el.name}`}>{el.name ? el.name : 'name'}</label>
-            <div className='newClaim' key={index}>
+            <div className='newClaim'>
               <input
                 placeholder='name'
                 type='text'
@@ -282,7 +282,7 @@ const Inputs: React.FC = () => {
                 x
               </ButtonStyles>
             </div>
-          </>
+          </div>
         ))}
 
         <div className='buttons-wrapper'>

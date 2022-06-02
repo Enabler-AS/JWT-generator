@@ -70,7 +70,7 @@ const Inputs: React.FC = () => {
 
   useEffect(() => {
     returnNewClaimsList();
-  }, [claims]);
+  }, [claims]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleSecretVisibility = () => {
     setSecretShown(secretShown ? false : true);

@@ -18,34 +18,52 @@ interface InputData {
   aud?: string;
 }
 
-interface ClaimEntry {
+interface Claim {
   name: string;
   value: string;
   index: number;
 }
 
-const reducer = (state: any, action: any) => {
-  const stateCopy = [...state];
-  const handleChangeValues = (field: string, index: number, value: string) => (stateCopy[index][field] = value);
+enum ActionKind {
+  EmptyClaim = 'EmptyClaim',
+  Name = 'name',
+  Value = 'value',
+  Delete = 'delete',
+}
 
-  switch (action.action) {
-    case 'addEmptyClaim':
-      return [...state, { name: '', value: '' }];
-    case 'name':
-      handleChangeValues('name', action.payload.index, action.payload.value);
+interface Payload {
+  value?: string;
+  index: number;
+}
+
+type Action = {
+  type: ActionKind;
+  payload?: Payload;
+};
+
+const reducer = (claims: any, action: Action) => {
+  const stateCopy = [...claims];
+  const handleChangeValues = (actionKind: ActionKind, index: number, value: string) =>
+    (stateCopy[index][actionKind] = value);
+
+  switch (action.type) {
+    case ActionKind.EmptyClaim:
+      return [...claims, { name: '', value: '' }];
+    case ActionKind.Name:
+      handleChangeValues(ActionKind.Name, action.payload!.index, action.payload!.value!);
       return stateCopy;
-    case 'value':
-      handleChangeValues('value', action.payload.index, action.payload.value);
+    case ActionKind.Value:
+      handleChangeValues(ActionKind.Value, action.payload!.index, action.payload!.value!);
       return stateCopy;
-    case 'delete':
-      return stateCopy.filter(item => item !== stateCopy[action.index]);
+    case ActionKind.Delete:
+      return stateCopy.filter(item => item !== stateCopy[action.payload!.index]);
 
     default:
-      return state;
+      return claims;
   }
 };
 
-const initialState: ClaimEntry[] = [];
+const initialState: Claim[] = [];
 
 const Inputs: React.FC = () => {
   const [selectedTable, setSelectedTable] = useState<string>('');
@@ -105,7 +123,7 @@ const Inputs: React.FC = () => {
   };
 
   const returnNewClaimsList = () => {
-    const claimsList = claims.reduce((acc: any, item: any) => {
+    const claimsList = claims.reduce((acc: Claim, item: Claim) => {
       return { ...acc, [item.name]: item.value };
     }, {});
     setNewClaims(claimsList);
@@ -113,7 +131,7 @@ const Inputs: React.FC = () => {
 
   const handleAddNewClaimClick = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch({ action: 'addEmptyClaim' });
+    dispatch({ type: ActionKind.EmptyClaim });
   };
 
   const handleAddRoleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -237,7 +255,7 @@ const Inputs: React.FC = () => {
           />
         </div>
 
-        {claims.map((el: any, index: number) => (
+        {claims.map((el: Claim, index: number) => (
           <>
             <label htmlFor={`${el.name}`}>{el.name ? el.name : 'name'}</label>
             <div className='newClaim' key={index}>
@@ -245,21 +263,21 @@ const Inputs: React.FC = () => {
                 placeholder='name'
                 type='text'
                 autoComplete='off'
-                onChange={e => dispatch({ action: 'name', payload: { value: e.target.value, index } })}
+                onChange={e => dispatch({ type: ActionKind.Name, payload: { value: e.target.value, index } })}
                 value={el.name}
               />
               <input
                 placeholder='value'
                 type='text'
                 autoComplete='off'
-                onChange={e => dispatch({ action: 'value', payload: { value: e.target.value, index } })}
+                onChange={e => dispatch({ type: ActionKind.Value, payload: { value: e.target.value, index } })}
                 value={el.value}
                 disabled={!el.name}
               />
               <ButtonStyles
                 type='button'
                 onClick={() => {
-                  dispatch({ action: 'delete', index });
+                  dispatch({ type: ActionKind.Delete, payload: { index } });
                 }}>
                 x
               </ButtonStyles>

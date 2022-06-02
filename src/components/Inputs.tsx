@@ -210,7 +210,7 @@ const Inputs: React.FC = () => {
             type='checkbox'
             name='base64'
           />
-          <div>secret base64 encoded</div>
+          <label htmlFor='checbox-base64'>secret base64 encoded</label>
         </div>
 
         {addClaim ? (

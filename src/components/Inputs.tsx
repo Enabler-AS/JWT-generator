@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import Role from './Role';
 import Select from './Select';
 import Input from './Input';
@@ -18,6 +18,53 @@ interface InputData {
   aud?: string;
 }
 
+interface Claim {
+  name: string;
+  value: string;
+  index: number;
+}
+
+enum ActionKind {
+  EmptyClaim = 'EmptyClaim',
+  Name = 'name',
+  Value = 'value',
+  Delete = 'delete',
+}
+
+interface Payload {
+  value?: string;
+  index: number;
+}
+
+type Action = {
+  type: ActionKind;
+  payload?: Payload;
+};
+
+const reducer = (claims: any, action: Action) => {
+  const stateCopy = [...claims];
+  const handleChangeValues = (actionKind: ActionKind, index: number, value: string) =>
+    (stateCopy[index][actionKind] = value);
+
+  switch (action.type) {
+    case ActionKind.EmptyClaim:
+      return [...claims, { name: '', value: '' }];
+    case ActionKind.Name:
+      handleChangeValues(ActionKind.Name, action.payload!.index, action.payload!.value!);
+      return stateCopy;
+    case ActionKind.Value:
+      handleChangeValues(ActionKind.Value, action.payload!.index, action.payload!.value!);
+      return stateCopy;
+    case ActionKind.Delete:
+      return stateCopy.filter(item => item !== stateCopy[action.payload!.index]);
+
+    default:
+      return claims;
+  }
+};
+
+const initialState: Claim[] = [];
+
 const Inputs: React.FC = () => {
   const [selectedTable, setSelectedTable] = useState<string>('');
   const [selectedRole, setSelectedRole] = useState<string>('');
@@ -25,9 +72,7 @@ const Inputs: React.FC = () => {
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [selectedExpiryDate, setSelectedExpiryDate] = useState<string>('1y');
   const [secretShown, setSecretShown] = useState<boolean>(false);
-  const [addClaim, setAddClaim] = useState<boolean>(false);
-  const [newClaims, setNewClaims] = useState<any>();
-  const [newClaimName, setNewClaimName] = useState<string>('');
+  const [newClaims, setNewClaims] = useState<string[]>();
   const [generatedToken, setGeneratedToken] = useState<string>('');
   const [secret, setSecret] = useState<string>(`${window.location.hash.replace('#', '')}`);
   const [inputData, setInputData] = useState<InputData>({
@@ -35,9 +80,15 @@ const Inputs: React.FC = () => {
     company: '',
   });
 
+  const [claims, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
     removeSecret();
   }, []);
+
+  useEffect(() => {
+    returnNewClaimsList();
+  }, [claims]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const toggleSecretVisibility = () => {
     setSecretShown(secretShown ? false : true);
@@ -71,15 +122,16 @@ const Inputs: React.FC = () => {
     }
   };
 
-  const handleAddNewClaimClick = (event: React.FormEvent) => {
-    event.preventDefault();
-    setAddClaim(true);
+  const returnNewClaimsList = () => {
+    const claimsList = claims.reduce((acc: Claim, item: Claim) => {
+      return { ...acc, [item.name]: item.value };
+    }, {});
+    setNewClaims(claimsList);
   };
 
-  const handleNewClaimChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const value = target.value;
-    setNewClaims({ [newClaimName]: value });
-    console.log(newClaims);
+  const handleAddNewClaimClick = (event: React.FormEvent) => {
+    event.preventDefault();
+    dispatch({ type: ActionKind.EmptyClaim });
   };
 
   const handleAddRoleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -203,27 +255,42 @@ const Inputs: React.FC = () => {
           />
         </div>
 
-        {addClaim ? (
-          <div className='newClaim'>
-            <input
-              placeholder='name'
-              type='text'
-              autoComplete='off'
-              onChange={e => setNewClaimName(e.target.value)}
-              value={newClaimName}
-            />
-            <input
-              placeholder='value'
-              type='text'
-              autoComplete='off'
-              name={newClaimName}
-              onChange={handleNewClaimChange}
-            />
+        {claims.map((el: Claim, index: number) => (
+          <div key={index}>
+            <label htmlFor={`${el.name}`}>{el.name ? el.name : 'name'}</label>
+            <div className='newClaim'>
+              <input
+                placeholder='name'
+                type='text'
+                autoComplete='off'
+                onChange={e => dispatch({ type: ActionKind.Name, payload: { value: e.target.value, index } })}
+                value={el.name}
+              />
+              <input
+                placeholder='value'
+                type='text'
+                autoComplete='off'
+                onChange={e => dispatch({ type: ActionKind.Value, payload: { value: e.target.value, index } })}
+                value={el.value}
+                disabled={!el.name}
+              />
+              <ButtonStyles
+                type='button'
+                onClick={() => {
+                  dispatch({ type: ActionKind.Delete, payload: { index } });
+                }}>
+                x
+              </ButtonStyles>
+            </div>
           </div>
-        ) : null}
+        ))}
 
         <div className='buttons-wrapper'>
-          <ButtonStyles type='button' className='submit-button' onClick={handleAddNewClaimClick}>
+          <ButtonStyles
+            type='button'
+            className='submit-button'
+            onClick={handleAddNewClaimClick}
+            disabled={!!claims.length && !claims[claims.length - 1].name}>
             Add a new claim
           </ButtonStyles>
           <ButtonStyles type='submit' className='submit-button'>

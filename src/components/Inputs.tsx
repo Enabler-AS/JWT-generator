@@ -7,6 +7,7 @@ import Outputs from './Outputs';
 import selectData from '../data/selectData.json';
 import removeSecret from '../lib/removeSecret';
 import jwtSignature from '../lib/jwtSignature';
+import atob from '../lib/atob';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import FormStyles from './styles/FormStyles';
@@ -28,8 +29,10 @@ const Inputs: React.FC = () => {
   const [addClaim, setAddClaim] = useState<boolean>(false);
   const [newClaims, setNewClaims] = useState<any>();
   const [newClaimName, setNewClaimName] = useState<string>('');
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const [generatedToken, setGeneratedToken] = useState<string>('');
-  const [secret, setSecret] = useState<string>(`${window.location.hash.replace('#', '')}`);
+  const [secretInput, setSecretInput] = useState<string>(`${window.location.hash.replace('#', '')}`);
+  const [secret, setSecret] = useState<string>(secretInput);
   const [inputData, setInputData] = useState<InputData>({
     name: '',
     company: '',
@@ -50,9 +53,11 @@ const Inputs: React.FC = () => {
   };
 
   const handleSubmit = (event: React.FormEvent) => {
+    setTheSecret();
     event.preventDefault();
     const data = { roles: selectedRoles, ...inputData, ...newClaims };
     jwtSignature(data, setGeneratedToken, selectedExpiryDate, secret);
+    console.log(secret);
   };
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +98,19 @@ const Inputs: React.FC = () => {
     }
 
     clearRoleInputs();
+  };
+
+  const handleCheckboxChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(target.checked);
+  };
+
+  const setTheSecret = () => {
+    console.log(secretInput);
+    const decodedSecret = atob(secretInput);
+    console.log(decodedSecret);
+    console.log(isChecked);
+    isChecked === false ?? setSecret(secretInput);
+    isChecked === true ?? setSecret(decodedSecret);
   };
 
   return (
@@ -191,8 +209,11 @@ const Inputs: React.FC = () => {
             placeholder='secret'
             type={secretShown ? 'text' : 'password'}
             name='secret'
-            onChange={e => setSecret(e.target.value)}
-            value={secret}
+            onChange={e => {
+              setSecretInput(e.target.value);
+              setIsChecked(false);
+            }}
+            value={secretInput}
             required={true}
             autoComplete='off'
           />
@@ -208,9 +229,12 @@ const Inputs: React.FC = () => {
             title='checkbox-base64'
             id='checkbox-base64'
             type='checkbox'
-            name='base64'
+            name='checkbox-base64'
+            onChange={handleCheckboxChange}
+            checked={isChecked}
           />
           <label htmlFor='checbox-base64'>secret base64 encoded</label>
+          {isChecked === true ? 'checked' : 'unchecked'}
         </div>
 
         {addClaim ? (
